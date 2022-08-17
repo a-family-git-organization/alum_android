@@ -176,7 +176,7 @@ class GalleryView: AppCompatActivity() {
             //uriを定義
             //個々のview(itemView)にリスナをセット
             holder.itemView.setOnClickListener {
-                Toast.makeText(applicationContext, "${imageUris}がタップされました", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "${imageUris[position]}がタップされました", Toast.LENGTH_SHORT).show()
             }
         }
     }
