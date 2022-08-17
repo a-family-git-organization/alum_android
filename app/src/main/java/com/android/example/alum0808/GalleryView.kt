@@ -154,8 +154,19 @@ class GalleryView: AppCompatActivity() {
         const val REQUEST_CODE = 1
     }
 
+    private lateinit var listener: OnViewClickListener
+    interface  OnViewClickListener {
+        fun onItemClick(view:View)
+    }
+    fun setViewClickListener(listener: OnViewClickListener) {
+        // 定義した変数listenerに実行したい処理を引数で渡す（BookListFragmentで渡している）
+        this.listener = listener
+    }
+
     inner class ImageAdapter: RecyclerView.Adapter<ImageViewHolder>() {
+        //ImageAdapterのサイズを取得、前述のURIの取得数と等しい
         override fun getItemCount() = imageUris.size
+        //ViewHolderを作成
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater.inflate(R.layout.view_image_item, parent, false)
@@ -164,10 +175,16 @@ class GalleryView: AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
             holder.itemView.imageView.setImageURI(imageUris[position])
+            holder.itemView.setOnClickListener {
+                // ビューがクリックされた時にインターフェースの処理が実行される
+                listener.onItemClick(recyclerView)
+            }
+
         }
     }
 
     inner class ImageViewHolder(v: View): RecyclerView.ViewHolder(v)
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId){
             android.R.id.home->{
