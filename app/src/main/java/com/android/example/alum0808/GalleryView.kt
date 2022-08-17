@@ -14,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.PermissionChecker
-import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.gallery_view.*
@@ -173,10 +172,14 @@ class GalleryView: AppCompatActivity() {
         override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
             //個々のview(itemView)にimageをセット
             holder.itemView.imageView.setImageURI(imageUris[position])
+
             //uriを定義
             //個々のview(itemView)にリスナをセット
             holder.itemView.setOnClickListener {
                 Toast.makeText(applicationContext, "${imageUris[position]}がタップされました", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@GalleryView, PhotoView::class.java)
+                intent.putExtra("imageUri", imageUris[position])
+                startActivity(intent)
             }
         }
     }

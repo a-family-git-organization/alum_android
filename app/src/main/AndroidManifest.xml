@@ -37,6 +37,9 @@
         <activity android:name=".CameraView" >
 
         </activity>
+        <activity android:name=".PhotoView" >
+
+        </activity>
     </application>
 
 </manifest>
